@@ -69,12 +69,21 @@
         }
     </style>
 </head>
-<body class="text-white flex flex-col items-center justify-center min-h-screen p-4 jungle-bg">
-    <div class="absolute inset-0 bg-black bg-opacity-70"></div>
+<!-- <body class="text-white flex flex-col items-center justify-center min-h-screen p-4 jungle-bg">
+    <div class="absolute inset-0 bg-black bg-opacity-70"></div> -->
+<body class="text-white flex flex-col items-center justify-center min-h-screen p-4 relative" style="background-image: url('back.jpg'); background-size: cover; background-position: center;">
+    <div class="absolute inset-0 bg-black bg-opacity-10"></div>
     <div class="relative z-10 w-full max-w-4xl text-center">
-        <h1 class="text-4xl md:text-5xl font-bold mb-2 text-yellow-300 drop-shadow-lg">Jungle Book Treasure Hunt</h1>
-        <p class="text-lg mb-6 text-yellow-100">Find the hidden treasure under one of the characters!</p>
-        <div class="bg-green-900 bg-opacity-70 rounded-xl p-6 mb-8">
+        <!-- <h1 class="text-4xl md:text-5xl font-bold mb-2 text-blue-500 drop-shadow-lg">Treasure Hunt</h1>
+        <p class="text-lg mb-6 text-green-300">Find the hidden treasure under one of the characters!</p> -->
+    <div class="tile-inner h-full">
+  <div class="tile-front bg-gradient-to-br from-blue-800 to-blue-500 text-white font-bold text-lg md:text-xl flex flex-col items-center justify-center rounded-2xl shadow-xl p-6">
+    <h1 class="text-4xl md:text-5xl font-extrabold drop-shadow-lg mb-2">Treasure Hunt</h1>
+    <p class="text-lg md:text-xl text-green-300 font-medium">Find the hidden treasure under one of the characters!</p>
+  </div>
+</div>
+
+        <div class="bg-green-900 bg-opacity-50 rounded-xl p-6 mb-8">
             <div class="flex justify-between items-center mb-4">
                 <div class="bg-yellow-600 px-4 py-2 rounded-lg">
                     <span class="font-bold">Attempts: </span>
@@ -99,7 +108,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const characters = [
                 { name: 'Mowgli', color: 'bg-orange-500', sound: 'mowgliSound', img: 'mowgli.png' },
-                { name: 'Baloo', color: 'bg-gray-400', sound: 'balooSound', img: 'baloo.jpg' },
+                { name: 'Baloo', color: 'bg-blue-400', sound: 'balooSound', img: 'baloo.jpg' },
                 { name: 'Bagheera', color: 'bg-yellow-400', sound: 'bagheeraSound', img: 'bhageera.jpg' },
                 { name: 'Kaa', color: 'bg-red-500', sound: 'kaaSound', img: 'kaa.jpg' },
                 { name: 'King Louie', color: 'bg-purple-500', sound: 'louieSound', img: 'king.jpg' },
