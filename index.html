@@ -1,226 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jungle Book Treasure Hunt</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-            min-height: 100vh;
-        }
-        .tile {
-            perspective: 1000px;
-            transform-style: preserve-3d;
-            transition: all 0.5s ease;
-            cursor: pointer;
-        }
-        .tile-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            transition: transform 0.6s;
-        }
-        .tile.flipped .tile-inner {
-            transform: rotateY(180deg);
-        }
-        .tile-front, .tile-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 0.5rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .tile-back {
-            transform: rotateY(180deg);
-            background-color: #f8fafc;
-            flex-direction: column;
-        }
-        .treasure {
-            background: radial-gradient(circle, #FFD700, #FFA500);
-            box-shadow: 0 0 20px #FFD700;
-        }
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: #f00;
-            border-radius: 50%;
-            animation: fall 5s linear forwards;
-        }
-        @keyframes fall {
-            to {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-        .jungle-bg {
-            background-image: url('https://images.unsplash.com/photo-1542038782526-1a14182fb6b0?q=80&w=1000');
-            background-size: cover;
-            background-position: center;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🌴 Jungle Book Treasure Hunt 🐾</title>
+  <meta name="description" content="Flip the tiles and find the hidden treasure in this Jungle Book-themed adventure game!">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+      min-height: 100vh;
+    }
+
+    .tile {
+      perspective: 1000px;
+      transform-style: preserve-3d;
+      transition: all 0.5s ease;
+      cursor: pointer;
+    }
+
+    .tile-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.6s;
+    }
+
+    .tile.flipped .tile-inner {
+      transform: rotateY(180deg);
+    }
+
+    .tile-front, .tile-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 0.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .tile-back {
+      transform: rotateY(180deg);
+      background-color: #f8fafc;
+      flex-direction: column;
+    }
+
+    .treasure {
+      background: radial-gradient(circle, #FFD700, #FFA500);
+      box-shadow: 0 0 20px #FFD700;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #f00;
+      border-radius: 50%;
+      animation: fall 5s linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .jungle-bg {
+      background-image: url('https://images.unsplash.com/photo-1542038782526-1a14182fb6b0?q=80&w=1000');
+      background-size: cover;
+      background-position: center;
+    }
+  </style>
 </head>
-<!-- <body class="text-white flex flex-col items-center justify-center min-h-screen p-4 jungle-bg">
-    <div class="absolute inset-0 bg-black bg-opacity-70"></div> -->
+
 <body class="text-white flex flex-col items-center justify-center min-h-screen p-4 relative" style="background-image: url('back.jpg'); background-size: cover; background-position: center;">
-    <div class="absolute inset-0 bg-black bg-opacity-10"></div>
-    <div class="relative z-10 w-full max-w-4xl text-center">
-        <!-- <h1 class="text-4xl md:text-5xl font-bold mb-2 text-blue-500 drop-shadow-lg">Treasure Hunt</h1>
-        <p class="text-lg mb-6 text-green-300">Find the hidden treasure under one of the characters!</p> -->
-    <div class="tile-inner h-full">
-  <div class="tile-front bg-gradient-to-br from-blue-800 to-blue-500 text-white font-bold text-lg md:text-xl flex flex-col items-center justify-center rounded-2xl shadow-xl p-6">
-    <h1 class="text-4xl md:text-5xl font-extrabold drop-shadow-lg mb-2">Treasure Hunt</h1>
-    <p class="text-lg md:text-xl text-green-300 font-medium">Find the hidden treasure under one of the characters!</p>
-  </div>
-</div>
+  <div class="absolute inset-0 bg-black bg-opacity-10"></div>
 
-        <div class="bg-green-900 bg-opacity-50 rounded-xl p-6 mb-8">
-            <div class="flex justify-between items-center mb-4">
-                <div class="bg-yellow-600 px-4 py-2 rounded-lg">
-                    <span class="font-bold">Attempts: </span>
-                    <span id="attempts" class="font-mono">0</span>
-                </div>
-                <div id="message" class="text-xl font-semibold px-4 py-2 rounded-lg bg-blue-600 bg-opacity-70"></div>
-            </div>
-            <div class="grid grid-cols-3 md:grid-cols-4 gap-4 mb-6"></div>
-            <button id="resetBtn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-full transition-all transform hover:scale-105">Reset Game</button>
+  <div class="relative z-10 w-full max-w-4xl text-center">
+    <!-- Header Tile -->
+    <div class="tile h-20 w-full md:w-3/4 lg:w-2/3 mx-auto mb-2 transform transition-transform hover:scale-105 ">
+      <div class="tile-inner ">
+        <div class="tile-front bg-gradient-to-br from-green-700 to-emerald-500 text-white font-bold text-center flex flex-col items-center justify-center rounded-2xl shadow-2xl p-4">
+          <h1 class="text-4xl md:text-3xl font-extrabold drop-shadow-lg mb-1">Treasure Hunt</h1>
+          <p class="text-lg md:text-xl text-yellow-200 font-medium">Find the hidden treasure under one of the characters!</p>
         </div>
+      </div>
     </div>
-    <audio id="mowgliSound" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" preload="auto"></audio>
-    <audio id="balooSound" src="https://www.soundjay.com/misc/sounds/bear-growl-01.mp3" preload="auto"></audio>
-    <audio id="bagheeraSound" src="https://www.soundjay.com/mechanical/sounds/cat-purring-01.mp3" preload="auto"></audio>
-    <audio id="kaaSound" src="https://www.soundjay.com/mechanical/sounds/snake-hissing-01.mp3" preload="auto"></audio>
-    <audio id="louieSound" src="https://www.soundjay.com/misc/sounds/monkey-01.mp3" preload="auto"></audio>
-    <audio id="shereSound" src="https://www.soundjay.com/misc/sounds/tiger-roar-01.mp3" preload="auto"></audio>
-    <audio id="treasureSound" src="https://www.soundjay.com/misc/sounds/magic-chime-01.mp3" preload="auto"></audio>
-    <audio id="flipSound" src="https://www.soundjay.com/mechanical/sounds/page-flip-01.mp3" preload="auto"></audio>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const characters = [
-                { name: 'Mowgli', color: 'bg-orange-500', sound: 'mowgliSound', img: 'mowgli.png' },
-                { name: 'Baloo', color: 'bg-blue-400', sound: 'balooSound', img: 'baloo.jpg' },
-                { name: 'Bagheera', color: 'bg-yellow-400', sound: 'bagheeraSound', img: 'bhageera.jpg' },
-                { name: 'Kaa', color: 'bg-red-500', sound: 'kaaSound', img: 'kaa.jpg' },
-                { name: 'King Louie', color: 'bg-purple-500', sound: 'louieSound', img: 'king.jpg' },
-                { name: 'Shere Khan', color: 'bg-green-500', sound: 'shereSound', img: 'sherekhan.jpg' }
-            ];
+    <!-- Game Board -->
+    <div class="bg-green-900 bg-opacity-50 rounded-xl p-6 mb-8 shadow-lg">
+      <div class="flex justify-between items-center mb-4">
+        <div class="bg-yellow-600 px-4 py-2 rounded-lg">
+          <span class="font-bold">Attempts: </span>
+          <span id="attempts" class="font-mono">0</span>
+        </div>
+        <div id="message" class="text-xl font-semibold px-4 py-2 rounded-lg bg-blue-600 bg-opacity-70"></div>
+      </div>
 
-            const grid = document.querySelector('.grid');
-            const messageEl = document.getElementById('message');
-            const attemptsEl = document.getElementById('attempts');
-            const resetBtn = document.getElementById('resetBtn');
+      <div class="grid grid-cols-3 md:grid-cols-4 gap-4 mb-6"></div>
 
-            let attempts = 0;
-            let treasureIndex = -1;
-            let flippedTiles = [];
-            let gameOver = false;
+      <button id="resetBtn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-full transition-all transform hover:scale-105 hover:shadow-lg">
+        Reset Game
+      </button>
+    </div>
+  </div>
 
-            initGame();
+  <!-- Audio Elements -->
+  <audio id="mowgliSound" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" preload="auto"></audio>
+  <audio id="balooSound" src="https://www.soundjay.com/misc/sounds/bear-growl-01.mp3" preload="auto"></audio>
+  <audio id="bagheeraSound" src="https://www.soundjay.com/mechanical/sounds/cat-purring-01.mp3" preload="auto"></audio>
+  <audio id="kaaSound" src="https://www.soundjay.com/mechanical/sounds/snake-hissing-01.mp3" preload="auto"></audio>
+  <audio id="louieSound" src="https://www.soundjay.com/misc/sounds/monkey-01.mp3" preload="auto"></audio>
+  <audio id="shereSound" src="https://www.soundjay.com/misc/sounds/tiger-roar-01.mp3" preload="auto"></audio>
+  <audio id="treasureSound" src="https://www.soundjay.com/misc/sounds/magic-chime-01.mp3" preload="auto"></audio>
+  <audio id="flipSound" src="https://www.soundjay.com/mechanical/sounds/page-flip-01.mp3" preload="auto"></audio>
 
-            function initGame() {
-                grid.innerHTML = '';
-                flippedTiles = [];
-                attempts = 0;
-                attemptsEl.textContent = attempts;
-                messageEl.textContent = '';
-                gameOver = false;
+  <!-- JS Logic -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const characters = [
+        { name: 'Lion', color: 'bg-orange-500', sound: 'mowgliSound', img: 'lion.jpg' },
+        { name: 'Tiger', color: 'bg-blue-400', sound: 'balooSound', img: 'tiger.jpg' },
+        { name: 'Monkey', color: 'bg-yellow-400', sound: 'bagheeraSound', img: 'monkey.jpg' },
+        { name: 'Rabbit', color: 'bg-red-500', sound: 'kaaSound', img: 'rabbit.jpg' },
+        { name: 'Elephant', color: 'bg-purple-500', sound: 'louieSound', img: 'elephant.jpg' },
+        { name: 'Deer', color: 'bg-green-500', sound: 'shereSound', img: 'deer.jpg' }
+      ];
 
-                const tiles = [];
-                for (let i = 0; i < 6; i++) {
-                    tiles.push({ ...characters[i], hasTreasure: false });
-                    tiles.push({ ...characters[i], hasTreasure: false });
-                }
+      const grid = document.querySelector('.grid');
+      const messageEl = document.getElementById('message');
+      const attemptsEl = document.getElementById('attempts');
+      const resetBtn = document.getElementById('resetBtn');
 
-                shuffleArray(tiles);
-                treasureIndex = Math.floor(Math.random() * tiles.length);
-                tiles[treasureIndex].hasTreasure = true;
+      let attempts = 0;
+      let treasureIndex = -1;
+      let flippedTiles = [];
+      let gameOver = false;
 
-                tiles.forEach((tile, index) => {
-                    const tileEl = document.createElement('div');
-                    tileEl.className = 'tile h-24 md:h-32';
-                    tileEl.dataset.index = index;
+      initGame();
 
-                    tileEl.innerHTML = `
-                        <div class="tile-inner h-full">
-                            <div class="tile-front ${tile.color} text-white font-bold text-lg md:text-xl flex flex-col items-center justify-center">
-                                <span>Tile ${index + 1}</span>
-                            </div>
-                            <div class="tile-back ${tile.hasTreasure ? 'treasure' : 'bg-white text-gray-800'} flex-col">
-                                ${tile.hasTreasure ?
-                                    '<div class="text-center"><span class="text-2xl">\uD83D\uDCB0</span><p class="text-sm mt-1">TREASURE!</p></div>' :
-                                    `<img src="${tile.img}" alt="${tile.name}" class="w-16 h-16 object-contain rounded-full shadow-lg mb-2"><span class="text-sm font-bold">${tile.name}</span>`}
-                            </div>
-                        </div>
-                    `;
+      function initGame() {
+        grid.innerHTML = '';
+        flippedTiles = [];
+        attempts = 0;
+        attemptsEl.textContent = attempts;
+        messageEl.textContent = '';
+        gameOver = false;
 
-                    tileEl.addEventListener('click', () => flipTile(tileEl, tile));
-                    grid.appendChild(tileEl);
-                });
-            }
+        const tiles = [];
+        for (let i = 0; i < 6; i++) {
+          tiles.push({ ...characters[i], hasTreasure: false });
+          tiles.push({ ...characters[i], hasTreasure: false });
+        }
 
-            function flipTile(tileEl, tile) {
-                if (gameOver || tileEl.classList.contains('flipped')) return;
+        shuffleArray(tiles);
+        treasureIndex = Math.floor(Math.random() * tiles.length);
+        tiles[treasureIndex].hasTreasure = true;
 
-                document.getElementById('flipSound').play();
-                tileEl.classList.add('flipped');
-                flippedTiles.push(tileEl);
+        tiles.forEach((tile, index) => {
+          const tileEl = document.createElement('div');
+          tileEl.className = 'tile h-24 md:h-32';
+          tileEl.dataset.index = index;
 
-                if (!tile.hasTreasure) {
-                    document.getElementById(tile.sound).play();
-                }
+          tileEl.innerHTML = `
+            <div class="tile-inner h-full">
+              <div class="tile-front ${tile.color} text-white font-bold text-lg md:text-xl flex flex-col items-center justify-center">
+                <span>Tile ${index + 1}</span>
+              </div>
+              <div class="tile-back ${tile.hasTreasure ? 'treasure' : 'bg-white text-gray-800'} flex-col">
+                ${tile.hasTreasure ?
+                '<div class="text-center"><span class="text-2xl">💰</span><p class="text-sm mt-1">TREASURE!</p></div>' :
+                `<img src="${tile.img}" alt="${tile.name}" class="w-16 h-16 object-contain rounded-full shadow-lg mb-2"><span class="text-sm font-bold">${tile.name}</span>`}
+              </div>
+            </div>
+          `;
 
-                attempts++;
-                attemptsEl.textContent = attempts;
-
-                if (tile.hasTreasure) {
-                    gameOver = true;
-                    document.getElementById('treasureSound').play();
-                    messageEl.textContent = 'You found the treasure!';
-                    messageEl.className = 'text-xl font-semibold px-4 py-2 rounded-lg bg-yellow-600';
-                    createConfetti();
-                    tileEl.classList.add('animate-pulse');
-                } else {
-                    messageEl.textContent = `It's ${tile.name}! Keep looking...`;
-                    messageEl.className = 'text-xl font-semibold px-4 py-2 rounded-lg bg-blue-600 bg-opacity-70';
-                }
-            }
-
-            function shuffleArray(array) {
-                for (let i = array.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]];
-                }
-                return array;
-            }
-
-            function createConfetti() {
-                const colors = ['#FF5252', '#FFD740', '#64FFDA', '#448AFF', '#B388FF', '#FF80AB'];
-                for (let i = 0; i < 100; i++) {
-                    const confetti = document.createElement('div');
-                    confetti.className = 'confetti';
-                    confetti.style.left = Math.random() * 100 + 'vw';
-                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.width = Math.random() * 10 + 5 + 'px';
-                    confetti.style.height = Math.random() * 10 + 5 + 'px';
-                    confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
-                    confetti.style.animationDelay = Math.random() * 2 + 's';
-                    document.body.appendChild(confetti);
-                    setTimeout(() => { confetti.remove(); }, 5000);
-                }
-            }
-
-            resetBtn.addEventListener('click', initGame);
+          tileEl.addEventListener('click', () => flipTile(tileEl, tile));
+          grid.appendChild(tileEl);
         });
-    </script>
+      }
+
+      function flipTile(tileEl, tile) {
+        if (gameOver || tileEl.classList.contains('flipped')) return;
+
+        document.getElementById('flipSound').play();
+        tileEl.classList.add('flipped');
+        flippedTiles.push(tileEl);
+
+        if (!tile.hasTreasure) {
+          document.getElementById(tile.sound).play();
+        }
+
+        attempts++;
+        attemptsEl.textContent = attempts;
+
+        if (tile.hasTreasure) {
+          gameOver = true;
+          document.getElementById('treasureSound').play();
+          messageEl.textContent = 'You found the treasure!';
+          messageEl.className = 'text-xl font-semibold px-4 py-2 rounded-lg bg-yellow-600';
+          createConfetti();
+          tileEl.classList.add('animate-pulse');
+        } else {
+          messageEl.textContent = `It's ${tile.name}! Keep looking...`;
+          messageEl.className = 'text-xl font-semibold px-4 py-2 rounded-lg bg-blue-600 bg-opacity-70';
+        }
+      }
+
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+      }
+
+      function createConfetti() {
+        const colors = ['#FF5252', '#FFD740', '#64FFDA', '#448AFF', '#B388FF', '#FF80AB'];
+        for (let i = 0; i < 100; i++) {
+          const confetti = document.createElement('div');
+          confetti.className = 'confetti';
+          confetti.style.left = Math.random() * 100 + 'vw';
+          confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.width = Math.random() * 10 + 5 + 'px';
+          confetti.style.height = Math.random() * 10 + 5 + 'px';
+          confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+          confetti.style.animationDelay = Math.random() * 2 + 's';
+          document.body.appendChild(confetti);
+          setTimeout(() => { confetti.remove(); }, 5000);
+        }
+      }
+
+      resetBtn.addEventListener('click', initGame);
+    });
+  </script>
 </body>
 </html>
